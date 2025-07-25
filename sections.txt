@@ -1,0 +1,2 @@
+Ave de la semana|Descubre nuestra ave destacada de la semana.|./aves-semana.html|./bluebird.jpg
+Especies similares|Explora aves con características parecidas.|./especies-similares.html|./bluebird.jpg

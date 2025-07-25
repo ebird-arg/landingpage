@@ -34,26 +34,14 @@
     </main>
 
     <script>
-        // Contenido simulado de sections.txt
-        // En un entorno real, este contenido estaría en un archivo llamado 'sections.txt'
-        // y se cargaría mediante fetch.
-        // Formato: Titulo|Descripcion|Enlace_a_seccion_HTML|URL_de_Imagen
-        // Se ha actualizado la URL de la imagen para usar la nueva imagen JPG.
-        const imageUrl = './bluebird.jpg'; // Nueva URL de imagen JPG
-
-        const sectionsTxtContent = `Ave de la semana|Descubre nuestra ave destacada de la semana.|./aves-semana.html|${imageUrl}
-Especies similares|Explora aves con características parecidas.|./especies-similares.html|${imageUrl}`;
-
         document.addEventListener('DOMContentLoaded', () => {
             const sectionsContainer = document.getElementById('sections-container');
 
             // Función para cargar el contenido de un archivo de texto
             async function loadSections() {
                 try {
-                    // En un entorno de producción, usarías:
-                    // const response = await fetch('sections.txt');
-                    // const text = await response.text();
-                    const text = sectionsTxtContent; // Usamos el contenido simulado para este ejemplo
+                    const response = await fetch('sections.txt');
+                    const text = await response.text();
 
                     const lines = text.trim().split('\n');
                     lines.forEach(line => {
