@@ -6,14 +6,44 @@
     <title>Ave de la Semana</title>
     <!-- Carga de Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Carga de Font Awesome para íconos de redes sociales -->
+    <!-- Carga de Font Awesome para íconos de redes sociales y flechas de colapso -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Fuente Inter para una mejor legibilidad */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f2f5; /* Un gris claro para el fondo */
+            background-color: #385B75; /* Un gris claro para el fondo */
+            /* Añadido: Textura de fondo */
+            /*background-image: url('https://placehold.co/100x100/f0f2f5/CCCCCC?text=Texture'); /* Placeholder de textura */
+            /*background-repeat: repeat;
+            /*background-size: 100px; /* Ajusta el tamaño de la repetición de la textura */
         }
+        /* Estilos para las tarjetas de sección (copia de index.html) */
+        .section-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            cursor: pointer;
+            /* Modificado para usar flexbox y empujar el contenido de los enlaces al final */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Distribuye el espacio entre los elementos */
+        }
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        /* Estilos específicos para la imagen de la tarjeta de sección (copia de index.html) */
+        .section-image-container {
+            height: 180px; /* Altura fija para el contenedor de la imagen */
+            overflow: hidden; /* Asegura que la imagen no se desborde */
+            /*border-top-left-radius: 0.75rem; /* rounded-xl */
+            /*border-top-right-radius: 0.75rem; /* rounded-xl */
+        }
+        .section-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cubre el área manteniendo el aspecto */
+        }
+
         /* Estilos para los enlaces de redes sociales */
         .social-link {
             transition: color 0.2s ease-in-out;
@@ -21,69 +51,209 @@
         .social-link:hover {
             color: #3b82f6; /* Color azul de Tailwind */
         }
+        /* Estilos para el botón colapsable */
+        .collapsible-header {
+            background-color: #e2e8f0; /* bg-gray-200 */
+            color: #2d3748; /* text-gray-800 */
+            cursor: pointer;
+            padding: 1rem;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            transition: background-color 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.5rem; /* text-2xl */
+            border-radius: 0.5rem; /* rounded-lg */
+            margin-bottom: 0.5rem;
+        }
+
+        .collapsible-header:hover {
+            background-color: #cbd5e0; /* bg-gray-300 */
+        }
+
+        .collapsible-content {
+            padding: 0 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: #ffffff; /* bg-white */
+            border-radius: 0.5rem; /* rounded-lg */
+            margin-bottom: 1rem;
+        }
+
+        .collapsible-content.active {
+            max-height: 1000px; /* Suficiente para expandir el contenido */
+            padding-bottom: 1rem;
+        }
+
+        .arrow-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .collapsible-header.active .arrow-icon {
+            transform: rotate(90deg);
+        }
+        /* Contenedor para la imagen de la familia para asegurar el recorte circular */
+        .family-icon-wrapper {
+            width: 40px;
+            height: 40px;
+            border-radius: 1%; /* Para hacerla circular */
+            overflow: hidden; /* Recorta el contenido que se desborda */
+            margin-right: 1rem;
+            /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+            flex-shrink: 0; /* Evita que se encoja si hay poco espacio */
+            display: flex; /* Añadido para centrar la imagen dentro del wrapper */
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center; /* Centra verticalmente */
+        }
+
+        .family-icon-wrapper img {
+            width: 100%;
+            height: 100%;
+            /* CAMBIO AQUÍ: Usar 'contain' para que la imagen se ajuste sin recortarse */
+            object-fit: contain; /* Asegura que la imagen quepa completamente en el área */
+        }
     </style>
 </head>
+<link rel="icon" type="image/x-icon" href="https://ebird.org/favicon.ico">
 <body class="min-h-screen flex flex-col items-center py-8 px-4">
     <header class="text-center mb-8">
         <h1 class="text-4xl font-extrabold text-gray-900 mb-2">Ave de la Semana</h1>
-        <p class="text-lg text-gray-600">Descubre nuestras aves.</p>
+        <p class="text-lg text-gray-600">Descubre nuestras aves, organizadas por familia.</p>
         <a href="index.html" class="inline-block mt-4 px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition duration-300">
             &larr; Volver a la Bio
         </a>
     </header>
 
-    <main id="birds-container" class="w-full max-w-3xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Las aves se cargarán aquí dinámicamente -->
+    <main id="families-container" class="w-full max-w-3xl">
+        <!-- Las familias de aves se cargarán aquí dinámicamente -->
     </main>
 
     <script>
-        // Contenido simulado de aves-semana.txt
-        // En un entorno real, este contenido estaría en un archivo llamado 'aves-semana.txt'
-        // y se cargaría mediante fetch.
-        const avesSemanaTxtContent = `Picaflor Verde|https://placehold.co/150x150/A0E7E5/000000?text=Picaflor|https://instagram.com/colibri|https://facebook.com/colibri|https://web.com/colibri.com
-Cardenal Rojo|https://placehold.co/150x150/F5CBA7/000000?text=Cardenal|https://instagram.com/cardenal|https://facebook.com/cardenal|https://web.com/cardenal.com
-Loro Barranquero|https://placehold.co/150x150/D1D1F0/000000?text=Loro|https://instagram.com/loro|https://facebook.com/loro|https://web.com/loro.com
-Tucúquere|https://placehold.co/150x150/B8E0D4/000000?text=Tucúquere|https://instagram.com/buho|https://facebook.com/buho|https://web.com/buho.com`;
-
         document.addEventListener('DOMContentLoaded', () => {
-            const birdsContainer = document.getElementById('birds-container');
+            const familiesContainer = document.getElementById('families-container');
 
             // Función para cargar el contenido de un archivo de texto
             async function loadBirds() {
                 try {
-                    // En un entorno de producción, usarías:
-                    // const response = await fetch('aves-semana.txt');
-                    // const text = await response.text();
-                    const text = avesSemanaTxtContent; // Usamos el contenido simulado para este ejemplo
+                    const response = await fetch('ave-semana.txt');
+                    const text = await response.text();
 
                     const lines = text.trim().split('\n');
-                    
-                    // Ordenar alfabéticamente por el nombre del ave
-                    const sortedLines = lines.map(line => {
-                        const [name, ...rest] = line.split('|');
-                        return { name, originalLine: line };
-                    }).sort((a, b) => a.name.localeCompare(b.name));
+                    let currentFamily = null;
+                    const familiesData = {};
 
-                    sortedLines.forEach(item => {
-                        const [name, imageUrl, instagramLink, facebookLink, webLink] = item.originalLine.split('|');
-                        if (name) {
-                            const card = document.createElement('div');
-                            card.className = 'bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center';
-                            card.innerHTML = `
-                                <img src="${imageUrl || 'https://placehold.co/150x150/CCCCCC/FFFFFF?text=Ave'}" alt="${name}" class="w-32 h-32 rounded-full object-cover mb-4 shadow-md">
-                                <h2 class="text-xl font-semibold text-gray-800 mb-2">${name}</h2>
-                                <div class="flex space-x-4 mt-4">
-                                    ${instagramLink ? `<a href="${instagramLink}" target="_blank" class="social-link text-gray-500 hover:text-pink-600"><i class="fab fa-instagram text-2xl"></i></a>` : ''}
-                                    ${facebookLink ? `<a href="${facebookLink}" target="_blank" class="social-link text-gray-500 hover:text-blue-700"><i class="fab fa-facebook text-2xl"></i></a>` : ''}
-                                    ${webLink ? `<a href="${webLink}" target="_blank" class="social-link text-gray-500 hover:text-green-600"><i class="fas fa-globe text-2xl"></i></a>` : ''}
-                                </div>
-                            `;
-                            birdsContainer.appendChild(card);
+                    lines.forEach(line => {
+                        if (line.startsWith('--')) {
+                            // Es una línea de familia
+                            const [, familyInfo] = line.split('--');
+                            const [familyName, familyImageUrl] = familyInfo.split('|');
+                            currentFamily = familyName.trim();
+                            familiesData[currentFamily] = {
+                                imageUrl: familyImageUrl ? familyImageUrl.trim() : 'https://placehold.co/40x40/CCCCCC/FFFFFF?text=F',
+                                birds: []
+                            };
+                        } else if (currentFamily) {
+                            // Es una línea de ave dentro de la familia actual
+                            // Nuevo formato: Nombre_Ave|Nombre_Cientifico|URL_Imagen_Ave|Instagram|Facebook|eBirdLink|BirdOfTheWorldLink
+                            const [name, scientificName, birdImageUrl, instagramLink, facebookLink, ebirdLink, birdOfTheWorldLink] = line.split('|');
+                            if (name) {
+                                familiesData[currentFamily].birds.push({
+                                    name: name.trim(),
+                                    scientificName: scientificName ? scientificName.trim() : '', // Añadido el nombre científico
+                                    birdImageUrl: birdImageUrl ? birdImageUrl.trim() : 'https://placehold.co/400x180/CCCCCC/FFFFFF?text=Ave', // Actualizado el placeholder
+                                    instagramLink: instagramLink ? instagramLink.trim() : '',
+                                    facebookLink: facebookLink ? facebookLink.trim() : '',
+                                    ebirdLink: ebirdLink ? ebirdLink.trim() : '',
+                                    birdOfTheWorldLink: birdOfTheWorldLink ? birdOfTheWorldLink.trim() : ''
+                                });
+                            }
                         }
                     });
+
+                    // Ordenar las familias alfabéticamente
+                    const sortedFamilies = Object.keys(familiesData).sort();
+
+                    sortedFamilies.forEach(family => {
+                        const familyInfo = familiesData[family];
+
+                        // Contenedor para la familia colapsable
+                        const familySection = document.createElement('div');
+                        familySection.className = 'mb-4';
+
+                        // Botón de cabecera colapsable
+                        const headerButton = document.createElement('button');
+                        headerButton.className = 'collapsible-header';
+                        headerButton.innerHTML = `
+                            <div class="flex items-center">
+                                <!-- Contenedor para la imagen de la familia para asegurar el recorte circular -->
+                                <div class="family-icon-wrapper">
+                                    <img src="${familyInfo.imageUrl}" alt="${family}">
+                                </div>
+                                <span>${family}</span>
+                            </div>
+                            <i class="fas fa-chevron-right arrow-icon"></i>
+                        `;
+                        familySection.appendChild(headerButton);
+
+                        // Contenido colapsable (grid de aves)
+                        const contentDiv = document.createElement('div');
+                        contentDiv.className = 'collapsible-content';
+                        const birdsGrid = document.createElement('div');
+                        birdsGrid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-4'; // Añadir padding vertical
+
+                        // Ordenar las aves dentro de cada familia alfabéticamente por nombre
+                        const sortedBirds = familyInfo.birds.sort((a, b) => a.name.localeCompare(b.name));
+
+                        sortedBirds.forEach(bird => {
+                            const card = document.createElement('div');
+                            // Clases de la tarjeta principal: borde, sombra, esquinas redondeadas, flexbox (igual que section-card)
+                            card.className = 'section-card bg-white rounded-xl shadow-lg border border-gray-200 transform hover:scale-105';
+                            card.innerHTML = `
+                                <div class="section-image-container w-full mb-4">
+                                    <img src="${bird.birdImageUrl}" alt="${bird.name}" class="rounded-t-xl">
+                                </div>
+                                <div class="p-6 pt-0 flex-grow flex flex-col items-center text-center">
+                                    <h2 class="text-2xl font-semibold text-gray-800 mb-2">${bird.name}</h2>
+                                    <!-- El nombre científico se muestra en itálica con la clase 'italic' de Tailwind CSS -->
+                                    ${bird.scientificName ? `<p class="text-gray-500 text-sm italic mb-2">${bird.scientificName}</p>` : ''}
+                                    <!-- El div de los enlaces ahora tiene mt-auto para empujarlo al final -->
+                                    <div class="flex space-x-4 mt-auto pt-4">
+                                        ${bird.instagramLink ? `<a href="${bird.instagramLink}" target="_blank" class="social-link text-gray-500 hover:text-pink-600"><i class="fab fa-instagram text-2xl"></i></a>` : ''}
+                                        ${bird.facebookLink ? `<a href="${bird.facebookLink}" target="_blank" class="social-link text-gray-500 hover:text-blue-700"><i class="fab fa-facebook text-2xl"></i></a>` : ''}
+                                        ${bird.ebirdLink ? `<a href="${bird.ebirdLink}" target="_blank" class="social-link text-gray-500 hover:text-blue-500"><img src="https://ebird.org/favicon.ico" alt="eBird" class="w-6 h-6 inline-block"></a>` : ''}
+                                        ${bird.birdOfTheWorldLink ? `<a href="${bird.birdOfTheWorldLink}" target="_blank" class="social-link text-gray-500 hover:text-orange-500"><img src="https://birdsoftheworld.org/favicon.ico" alt="Bird of the World" class="w-6 h-6 inline-block"></a>` : ''}
+                                    </div>
+                                </div>
+                            `;
+                            birdsGrid.appendChild(card);
+                        });
+
+                        contentDiv.appendChild(birdsGrid);
+                        familySection.appendChild(contentDiv);
+                        familiesContainer.appendChild(familySection);
+
+                        // Lógica para colapsar/expandir
+                        headerButton.addEventListener('click', function() {
+                            this.classList.toggle('active');
+                            const content = this.nextElementSibling;
+                            if (content.style.maxHeight) {
+                                content.style.maxHeight = null;
+                                content.classList.remove('active');
+                            } else {
+                                content.style.maxHeight = content.scrollHeight + "px";
+                                content.classList.add('active');
+                            }
+                        });
+                    });
+
                 } catch (error) {
                     console.error('Error al cargar las aves:', error);
-                    birdsContainer.innerHTML = '<p class="text-red-500">No se pudieron cargar las aves. Inténtalo de nuevo más tarde.</p>';
+                    familiesContainer.innerHTML = '<p class="text-red-500 text-center">No se pudieron cargar las aves. Inténtalo de nuevo más tarde.</p>';
                 }
             }
 

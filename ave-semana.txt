@@ -1,0 +1,8 @@
+--Trochilidae|./img/trochilidae.png
+Picaflor Verde|Chlorostilbon lucidus|./img/semana/cloluc.jpg|https://www.instagram.com/p/CZAmafTvyEI|https://facebook.com/colibri|https://ebird.org/species/picaflorverde|https://birdsoftheworld.org/species/picaflorverde
+Picaflor Cometa|Sappho sparganurus|./img/semana/sapspa.jpg|https://www.instagram.com/p/CzwvrlfRIcP|https://facebook.com/colibri|https://ebird.org/species/picaflorcometa|https://birdsoftheworld.org/species/picaflorcometa
+Picaflor Enano|Microstilbon burmeisteri|./img/semana/micbur.jpg|https://www.instagram.com/p/CXUa8CAvYNN|https://facebook.com/colibri|https://ebird.org/species/picaflorrubi|https://birdsoftheworld.org/species/picaflorrubi
+--Passerellidae|./img/passerellidae.png
+Cachilo Ceja Amarilla|Ammodramus humeralis|./img/semana/ammhum.jpg|https://www.instagram.com/p/DDQFB86xSem|https://facebook.com/chingolo|https://ebird.org/species/chingolo|https://birdsoftheworld.org/species/chingolo
+--Tyrannidae|./img/tyra_bg.png
+Benteveo Chico|Conopias trivirgatus|./img/semana/contri.jpg|https://www.instagram.com/p/DK2wYvxBypt|https://facebook.com/benteveo|https://ebird.org/species/benteveo|https://birdsoftheworld.org/species/benteveo
