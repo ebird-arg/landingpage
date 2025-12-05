@@ -1,0 +1,184 @@
+/* Fuente Inter para una mejor legibilidad */
+body {
+    font-family: 'Inter', sans-serif;
+    /* Color de fondo unificado (verde-bosque para eBird) */
+    background-color: #36824B;
+}
+
+/* Estilo para los títulos de las secciones, usado en ambas páginas */
+.section-title {
+    /* Aumentar tamaño y sombra para más importancia */
+    /* text-4xl font-extrabold text-white mb-8 text-center */
+    font-size: 2.25rem; /* 36px */
+    font-weight: 800;
+    color: white;
+    margin-bottom: 2rem;
+    text-align: center;
+    /* Sombra más fuerte y visible */
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* ------------------------------------------------------------------ */
+/* Estilos para las Tarjetas de la Landing Page (index.html) */
+/* ------------------------------------------------------------------ */
+
+/* Estilos para las tarjetas de sección y ave (clase común) */
+.card-base {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    cursor: pointer;
+    /* Ajuste para usar flexbox y empujar el contenido de los enlaces al final */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.card-base:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenedor de imagen para tarjetas (para recorte y altura uniforme) */
+.card-image-container {
+    height: 180px;
+    overflow: hidden;
+    /* Asegura que la imagen tenga esquinas redondeadas en la parte superior */
+    border-top-left-radius: 0.75rem; /* rounded-xl */
+    border-top-right-radius: 0.75rem; /* rounded-xl */
+}
+.card-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Estilos para las tarjetas de Noticias (Rediseño Horizontal) */
+.news-card {
+    /* Clases de Tailwind: fondo blanco, esquinas redondeadas, sombra, padding, layout horizontal, espacio entre elementos */
+    display: flex;
+    align-items: flex-start;
+    padding: 1rem; /* p-4 */
+    background-color: white;
+    border-radius: 0.75rem; /* rounded-xl */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+    border: 1px solid #f3f4f6; /* border border-gray-100 */
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s;
+    text-decoration: none; /* Asegurar que no haya subrayado de enlace */
+}
+.news-card:hover {
+    transform: translateY(-2px);
+    background-color: #f7f7f7;
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+.news-image {
+    width: 5rem; /* w-20 */
+    height: 5rem; /* h-20 */
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+    margin-right: 1rem; /* space-x-4 se traduce en margin-right en el primer hijo */
+}
+
+.news-text {
+    flex-grow: 1; /* flex-grow */
+}
+
+.news-title {
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 700; /* font-bold */
+    color: #1f2937; /* text-gray-900 */
+    line-height: 1.25; /* leading-tight */
+    display: block; /* Asegura que el título ocupe su propia línea */
+}
+
+/* Estilos para los iconos de redes sociales en el perfil (index.html) */
+.profile-social-icon {
+    transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+.profile-social-icon:hover {
+    transform: scale(1.1);
+}
+
+/* ------------------------------------------------------------------ */
+/* Estilos Específicos para Ave de la Semana (ave-semana.html) */
+/* ------------------------------------------------------------------ */
+
+/* Estilos para el botón colapsable de la familia */
+.collapsible-header {
+    background-color: #f3f4f6; /* bg-gray-100 */
+    color: #1f2937; /* text-gray-900 */
+    cursor: pointer;
+    padding: 1rem;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    border-radius: 0.75rem; /* rounded-xl */
+    margin-bottom: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.collapsible-header:hover {
+    background-color: #e5e7eb; /* bg-gray-200 */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.collapsible-content {
+    padding: 0 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+    background-color: #ffffff; /* bg-white */
+    border-radius: 0.75rem;
+    margin-bottom: 1rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.collapsible-content.active {
+    max-height: 2000px; /* Suficiente para expandir contenido dinámico */
+    padding-bottom: 1rem;
+    padding-top: 1rem; /* Añadir un poco de padding superior para el grid */
+}
+
+.arrow-icon {
+    transition: transform 0.3s ease;
+}
+
+.collapsible-header.active .arrow-icon {
+    transform: rotate(90deg);
+}
+
+/* Contenedor para la imagen de la familia (icono) */
+.family-icon-wrapper {
+    width: 48px; /* Ligeramente más grande */
+    height: 48px;
+    border-radius: 50%; /* Circular para el icono de familia */
+    overflow: hidden;
+    margin-right: 1rem;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff; /* Fondo blanco para mejor contraste */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.family-icon-wrapper img {
+    width: 80%; /* Ajustar la imagen dentro del círculo */
+    height: 80%;
+    object-fit: contain;
+}
+
+/* Estilo para los enlaces de redes sociales de aves */
+.social-link {
+    transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+.social-link:hover {
+    transform: scale(1.1);
+}

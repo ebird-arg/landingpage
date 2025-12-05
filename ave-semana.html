@@ -8,86 +8,99 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Carga de Font Awesome para íconos de redes sociales y flechas de colapso -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="https://ebird.org/favicon.ico">
     <style>
         /* Fuente Inter para una mejor legibilidad */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #385B75; /* Un gris claro para el fondo */
-            /* Añadido: Textura de fondo */
-            /*background-image: url('https://placehold.co/100x100/f0f2f5/CCCCCC?text=Texture'); /* Placeholder de textura */
-            /*background-repeat: repeat;
-            /*background-size: 100px; /* Ajusta el tamaño de la repetición de la textura */
+            /* CAMBIO CLAVE: Usar el verde oscuro de la identidad visual */
+            background-color: #36824B; 
         }
-        /* Estilos para las tarjetas de sección (copia de index.html) */
+        
+        /* Estilos comunes para las tarjetas de ave */
         .section-card {
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
             cursor: pointer;
-            /* Modificado para usar flexbox y empujar el contenido de los enlaces al final */
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Distribuye el espacio entre los elementos */
+            justify-content: space-between;
         }
         .section-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
-        /* Estilos específicos para la imagen de la tarjeta de sección (copia de index.html) */
+        
+        /* Contenedor de imagen para tarjetas (para recorte y altura uniforme) */
         .section-image-container {
-            height: 180px; /* Altura fija para el contenedor de la imagen */
-            overflow: hidden; /* Asegura que la imagen no se desborde */
-            /*border-top-left-radius: 0.75rem; /* rounded-xl */
-            /*border-top-right-radius: 0.75rem; /* rounded-xl */
+            height: 180px;
+            overflow: hidden;
+            border-top-left-radius: 0.75rem; 
+            border-top-right-radius: 0.75rem; 
         }
         .section-image-container img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Cubre el área manteniendo el aspecto */
+            object-fit: cover;
         }
 
-        /* Estilos para los enlaces de redes sociales */
+        /* Estilos para los enlaces de redes sociales de aves */
         .social-link {
-            transition: color 0.2s ease-in-out;
+            transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
         }
         .social-link:hover {
-            color: #3b82f6; /* Color azul de Tailwind */
+            transform: scale(1.1);
         }
-        /* Estilos para el botón colapsable */
+
+        /* ------------------------------------------------------------------ */
+        /* Estilos para el botón colapsable de la familia (MEJORA DE CONTRASTE) */
+        /* ------------------------------------------------------------------ */
         .collapsible-header {
-            background-color: #e2e8f0; /* bg-gray-200 */
-            color: #2d3748; /* text-gray-800 */
+            /* Fondo claro, color de texto oscuro, esquinas grandes, más sombra */
+            background-color: #ffffff; /* Blanco puro para alto contraste */
+            color: #1f2937; /* Gris oscuro para el texto */
             cursor: pointer;
-            padding: 1rem;
+            padding: 1.25rem; /* Más padding */
             width: 100%;
             text-align: left;
             border: none;
             outline: none;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: bold;
-            font-size: 1.5rem; /* text-2xl */
-            border-radius: 0.5rem; /* rounded-lg */
-            margin-bottom: 0.5rem;
+            font-weight: 700; /* font-bold */
+            font-size: 1.75rem; /* text-3xl */
+            border-radius: 1rem; /* Más redondeado (rounded-xl) */
+            margin-bottom: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+            border: 2px solid transparent; /* Añadir un borde sutil */
         }
 
         .collapsible-header:hover {
-            background-color: #cbd5e0; /* bg-gray-300 */
+            background-color: #f7f7f7; /* Gris muy claro al pasar el ratón */
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .collapsible-header.active {
+            border-color: #34d399; /* Borde verde claro cuando está activo */
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2), 0 0 0 4px rgba(52, 211, 153, 0.3);
         }
 
         .collapsible-content {
             padding: 0 1rem;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            background-color: #ffffff; /* bg-white */
-            border-radius: 0.5rem; /* rounded-lg */
+            transition: max-height 0.4s ease-in-out;
+            background-color: #e5e7eb; /* Fondo gris claro para el contenido expandido */
+            border-radius: 1rem;
             margin-bottom: 1rem;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
         .collapsible-content.active {
-            max-height: 1000px; /* Suficiente para expandir el contenido */
+            max-height: 2000px; 
             padding-bottom: 1rem;
+            padding-top: 1rem; 
         }
 
         .arrow-icon {
@@ -96,35 +109,45 @@
 
         .collapsible-header.active .arrow-icon {
             transform: rotate(90deg);
+            color: #059669; /* Verde más oscuro cuando está activo */
         }
-        /* Contenedor para la imagen de la familia para asegurar el recorte circular */
+
+        /* Contenedor para la imagen de la familia (icono) */
         .family-icon-wrapper {
-            width: 40px;
-            height: 40px;
-            border-radius: 1%; /* Para hacerla circular */
-            overflow: hidden; /* Recorta el contenido que se desborda */
+            width: 48px; 
+            height: 48px;
+            border-radius: 50%; 
+            overflow: hidden;
             margin-right: 1rem;
-            /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
-            flex-shrink: 0; /* Evita que se encoja si hay poco espacio */
-            display: flex; /* Añadido para centrar la imagen dentro del wrapper */
-            justify-content: center; /* Centra horizontalmente */
-            align-items: center; /* Centra verticalmente */
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #34d399; /* CAMBIO: Fondo verde claro para el círculo del icono */
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
         }
 
         .family-icon-wrapper img {
-            width: 100%;
-            height: 100%;
-            /* CAMBIO AQUÍ: Usar 'contain' para que la imagen se ajuste sin recortarse */
-            object-fit: contain; /* Asegura que la imagen quepa completamente en el área */
+            width: 80%; 
+            height: 80%;
+            object-fit: contain;
+        }
+
+        /* Estilo para el título principal de la página */
+        .main-title {
+            font-size: 3rem; /* text-5xl */
+            font-weight: 800; /* font-extrabold */
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
         }
     </style>
 </head>
-<link rel="icon" type="image/x-icon" href="https://ebird.org/favicon.ico">
 <body class="min-h-screen flex flex-col items-center py-8 px-4">
     <header class="text-center mb-8">
-        <h1 class="text-4xl font-extrabold text-gray-900 mb-2">Ave de la Semana</h1>
-        <p class="text-lg text-gray-600">Descubre nuestras aves, organizadas por familia.</p>
-        <a href="index.html" class="inline-block mt-4 px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition duration-300">
+        <!-- Uso de la nueva clase para un título más llamativo y contrastado -->
+        <h1 class="main-title mb-2">Ave de la Semana</h1>
+        <p class="text-lg text-white/90 mb-6">Descubre nuestras aves, organizadas por familia.</p>
+        <a href="index.html" class="inline-block mt-4 px-6 py-2 bg-yellow-400 text-gray-900 font-bold rounded-lg shadow-xl hover:bg-yellow-500 transition duration-300 transform hover:scale-105">
             &larr; Volver a la Bio
         </a>
     </header>
@@ -154,18 +177,18 @@
                             const [familyName, familyImageUrl] = familyInfo.split('|');
                             currentFamily = familyName.trim();
                             familiesData[currentFamily] = {
-                                imageUrl: familyImageUrl ? familyImageUrl.trim() : 'https://placehold.co/40x40/CCCCCC/FFFFFF?text=F',
+                                imageUrl: familyImageUrl ? familyImageUrl.trim() : 'https://placehold.co/48x48/CCCCCC/FFFFFF?text=F',
                                 birds: []
                             };
                         } else if (currentFamily) {
                             // Es una línea de ave dentro de la familia actual
-                            // Nuevo formato: Nombre_Ave|Nombre_Cientifico|URL_Imagen_Ave|Instagram|Facebook|eBirdLink|BirdOfTheWorldLink
+                            // Formato: Nombre_Ave|Nombre_Cientifico|URL_Imagen_Ave|Instagram|Facebook|eBirdLink|BirdOfTheWorldLink
                             const [name, scientificName, birdImageUrl, instagramLink, facebookLink, ebirdLink, birdOfTheWorldLink] = line.split('|');
                             if (name) {
                                 familiesData[currentFamily].birds.push({
                                     name: name.trim(),
-                                    scientificName: scientificName ? scientificName.trim() : '', // Añadido el nombre científico
-                                    birdImageUrl: birdImageUrl ? birdImageUrl.trim() : 'https://placehold.co/400x180/CCCCCC/FFFFFF?text=Ave', // Actualizado el placeholder
+                                    scientificName: scientificName ? scientificName.trim() : '', 
+                                    birdImageUrl: birdImageUrl ? birdImageUrl.trim() : 'https://placehold.co/400x180/CCCCCC/FFFFFF?text=Ave', 
                                     instagramLink: instagramLink ? instagramLink.trim() : '',
                                     facebookLink: facebookLink ? facebookLink.trim() : '',
                                     ebirdLink: ebirdLink ? ebirdLink.trim() : '',
@@ -190,9 +213,9 @@
                         headerButton.className = 'collapsible-header';
                         headerButton.innerHTML = `
                             <div class="flex items-center">
-                                <!-- Contenedor para la imagen de la familia para asegurar el recorte circular -->
+                                <!-- Contenedor para la imagen de la familia -->
                                 <div class="family-icon-wrapper">
-                                    <img src="${familyInfo.imageUrl}" alt="${family}">
+                                    <img src="${familyInfo.imageUrl}" alt="${family}" onerror="this.src='https://placehold.co/48x48/CCCCCC/FFFFFF?text=F'">
                                 </div>
                                 <span>${family}</span>
                             </div>
@@ -203,19 +226,20 @@
                         // Contenido colapsable (grid de aves)
                         const contentDiv = document.createElement('div');
                         contentDiv.className = 'collapsible-content';
+                        // Aumentar el número de columnas para tablet/desktop de 2 a 3
                         const birdsGrid = document.createElement('div');
-                        birdsGrid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-4'; // Añadir padding vertical
+                        birdsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 py-4'; 
 
                         // Ordenar las aves dentro de cada familia alfabéticamente por nombre
                         const sortedBirds = familyInfo.birds.sort((a, b) => a.name.localeCompare(b.name));
 
                         sortedBirds.forEach(bird => {
                             const card = document.createElement('div');
-                            // Clases de la tarjeta principal: borde, sombra, esquinas redondeadas, flexbox (igual que section-card)
+                            // Clases de la tarjeta principal: borde, sombra, esquinas redondeadas, flexbox
                             card.className = 'section-card bg-white rounded-xl shadow-lg border border-gray-200 transform hover:scale-105';
                             card.innerHTML = `
                                 <div class="section-image-container w-full mb-4">
-                                    <img src="${bird.birdImageUrl}" alt="${bird.name}" class="rounded-t-xl">
+                                    <img src="${bird.birdImageUrl}" alt="${bird.name}" class="rounded-t-xl" onerror="this.src='https://placehold.co/400x180/CCCCCC/FFFFFF?text=Ave'">
                                 </div>
                                 <div class="p-6 pt-0 flex-grow flex flex-col items-center text-center">
                                     <h2 class="text-2xl font-semibold text-gray-800 mb-2">${bird.name}</h2>
@@ -225,7 +249,7 @@
                                     <div class="flex space-x-4 mt-auto pt-4">
                                         ${bird.instagramLink ? `<a href="${bird.instagramLink}" target="_blank" class="social-link text-gray-500 hover:text-pink-600"><i class="fab fa-instagram text-2xl"></i></a>` : ''}
                                         ${bird.facebookLink ? `<a href="${bird.facebookLink}" target="_blank" class="social-link text-gray-500 hover:text-blue-700"><i class="fab fa-facebook text-2xl"></i></a>` : ''}
-                                        ${bird.ebirdLink ? `<a href="${bird.ebirdLink}" target="_blank" class="social-link text-gray-500 hover:text-blue-500"><img src="https://ebird.org/favicon.ico" alt="eBird" class="w-6 h-6 inline-block"></a>` : ''}
+                                        ${bird.ebirdLink ? `<a href="${bird.ebirdLink}" target="_blank" class="social-link text-gray-500 hover:text-green-500"><img src="https://ebird.org/favicon.ico" alt="eBird" class="w-6 h-6 inline-block"></a>` : ''}
                                         ${bird.birdOfTheWorldLink ? `<a href="${bird.birdOfTheWorldLink}" target="_blank" class="social-link text-gray-500 hover:text-orange-500"><img src="https://birdsoftheworld.org/favicon.ico" alt="Bird of the World" class="w-6 h-6 inline-block"></a>` : ''}
                                     </div>
                                 </div>
@@ -241,11 +265,12 @@
                         headerButton.addEventListener('click', function() {
                             this.classList.toggle('active');
                             const content = this.nextElementSibling;
+                            // Resetear la altura del contenido después de una pequeña espera para asegurar el cálculo correcto
                             if (content.style.maxHeight) {
                                 content.style.maxHeight = null;
                                 content.classList.remove('active');
                             } else {
-                                content.style.maxHeight = content.scrollHeight + "px";
+                                content.style.maxHeight = content.scrollHeight + 30 + "px"; // Añadir 30px de margen de seguridad
                                 content.classList.add('active');
                             }
                         });
